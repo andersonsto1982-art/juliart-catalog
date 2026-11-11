@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfica Juliart - Catálogo de Serviços</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fdf4f6',
+                            100: '#fbe8ed',
+                            500: '#e11d48',
+                            600: '#be123c',
+                            700: '#9f1239',
+                            900: '#881337',
+                            dark: '#0f172a',
+                            card: '#1e293b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19;
+            color: #f8fafc;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-effect:hover {
+            box-shadow: 0 0 25px rgba(225, 29, 72, 0.25);
+            border-color: rgba(225, 29, 72, 0.4);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-rose-500 selection:text-white pb-24">
+
+    <!-- Header / Capa do Perfil -->
+    <header class="relative overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900/90 to-[#0b0f19] pt-12 pb-8 px-4 text-center border-b border-slate-800">
+        <!-- Elementos decorativos de fundo -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-rose-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative max-w-xl mx-auto flex flex-col items-center">
+            <!-- Avatar / Logo -->
+            <div class="w-24 h-24 rounded-2xl bg-gradient-to-tr from-rose-600 to-pink-500 flex items-center justify-center shadow-2xl shadow-rose-600/30 mb-4 transform hover:scale-105 transition-transform duration-300">
+                <i class="fa-solid fa-palette text-4xl text-white"></i>
+            </div>
+
+            <!-- Títulos -->
+            <span class="inline-block px-3 py-1 rounded-full bg-rose-500/10 text-rose-400 text-xs font-semibold tracking-wider uppercase mb-2 border border-rose-500/20">
+                Catálogo Digital Oficial
+            </span>
+            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-2">
+                GRÁFICA JULIART
+            </h1>
+            <p class="text-slate-400 text-sm sm:text-base max-w-md mx-auto leading-relaxed mb-6">
+                Sua solução completa em impressão, design e desenvolvimento web.
+            </p>
+
+            <!-- Ações Rápidas Topo -->
+            <div class="flex flex-wrap justify-center gap-3 w-full max-w-xs">
+                <a href="#servicos" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium py-2.5 px-4 rounded-xl border border-slate-700 transition-all text-center">
+                    <i class="fa-solid fa-list-ul mr-2 text-rose-500"></i> Ver Menu
+                </a>
+                <a href="https://wa.me/5500000000000?text=Olá!%20Gostaria%20de%20fazer%20um%20orçamento%20na%20Gráfica%20Juliart." target="_blank" class="flex-1 bg-rose-600 hover:bg-rose-500 text-white text-sm font-semibold py-2.5 px-4 rounded-xl shadow-lg shadow-rose-600/20 transition-all text-center">
+                    <i class="fa-brands fa-whatsapp mr-2"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Barra de Filtros por Categoria -->
+    <nav class="sticky top-0 z-40 bg-[#0b0f19]/90 backdrop-blur-md border-b border-slate-800/80 py-3 px-4 overflow-x-auto no-scrollbar">
+        <div class="max-w-3xl mx-auto flex gap-2 min-w-max justify-start sm:justify-center">
+            <button onclick="filterCategory('all')" id="btn-all" class="cat-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-rose-600 text-white transition-all shadow-sm">
+                Todos
+            </button>
+            <button onclick="filterCategory('impressoes')" id="btn-impressoes" class="cat-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition-all border border-slate-700/60">
+                Impressões & Cópias
+            </button>
+            <button onclick="filterCategory('foto')" id="btn-foto" class="cat-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition-all border border-slate-700/60">
+                Fotografia
+            </button>
+            <button onclick="filterCategory('brindes')" id="btn-brindes" class="cat-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition-all border border-slate-700/60">
+                Brindes
+            </button>
+            <button onclick="filterCategory('design')" id="btn-design" class="cat-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition-all border border-slate-700/60">
+                Design & Web
+            </button>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal / Catálogo -->
+    <main id="servicos" class="flex-1 max-w-3xl w-full mx-auto px-4 py-8 space-y-10">
+
+        <!-- CATEGORIA 1: IMPRESSÕES & CÓPIAS -->
+        <section class="category-section" data-category="impressoes">
+            <div class="flex items-center gap-3 mb-5 border-b border-slate-800 pb-3">
+                <div class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400">
+                    <i class="fa-solid fa-print"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold text-white tracking-wide">Impressões & Cópias</h2>
+                    <p class="text-xs text-slate-400">Alta velocidade e nitidez impecável</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Item 1 -->
+                <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between glow-effect transition-all duration-300">
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="font-semibold text-slate-100 text-base">Cópias / Xerox (P&B / Colorida)</h3>
+                            <span class="text-rose-400 font-bold text-sm bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/20 shrink-0">
+                                P&B: R$ 0,30 | Color: R$ 0,60
+                            </span>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                            Cópias nítidas em alta velocidade. <br>
+                            <span class="text-slate-500 italic block mt-1">Acima de 50 P&B: R$ 0,25 | Acima de 30 Color: R$ 0,40</span>
+                        </p>
+                    </div>
+                    <button onclick="pedirServico('Cópias / Xerox (P&B / Colorida)')" class="mt-2 w-full bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-semibold py-2 px-3 rounded-xl border border-slate-700/80 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Solicitar Orçamento
+                    </button>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between glow-effect transition-all duration-300">
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="font-semibold text-slate-100 text-base">Currículo (Edição ou Criação)</h3>
+                            <span class="text-rose-400 font-bold text-sm bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/20 shrink-0">
+                                R$ 5,00
+                            </span>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                            Formatação profissional voltada para o mercado de trabalho atual.
+                        </p>
+                    </div>
+                    <button onclick="pedirServico('Currículo (Edição ou Criação)')" class="mt-2 w-full bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-semibold py-2 px-3 rounded-xl border border-slate-700/80 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Solicitar Serviço
+                    </button>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between glow-effect transition-all duration-300">
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="font-semibold text-slate-100 text-base">Cópias de CDs & DVDs</h3>
+                            <span class="text-rose-400 font-bold text-sm bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/20 shrink-0">
+                                CD: R$ 7 | DVD: R$ 12
+                            </span>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                            Gravação e backup seguro de mídias e arquivos digitais.
+                        </p>
+                    </div>
+                    <button onclick="pedirServico('Cópias de CDs & DVDs')" class="mt-2 w-full bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-semibold py-2 px-3 rounded-xl border border-slate-700/80 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Solicitar Serviço
+                    </button>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between glow-effect transition-all duration-300">
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="font-semibold text-slate-100 text-base">Conversão de Documentos para PDF</h3>
+                            <span class="text-rose-400 font-bold text-sm bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/20 shrink-0">
+                                R$ 3,00
+                            </span>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                            Digitalização e conversão rápida de arquivos físicos para padrão digital.
+                        </p>
+                    </div>
+                    <button onclick="pedirServico('Conversão de Documentos para PDF')" class="mt-2 w-full bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-semibold py-2 px-3 rounded-xl border border-slate-700/80 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Solicitar Serviço
+                    </button>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between glow-effect transition-all duration-300 sm:col-span-2">
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="font-semibold text-slate-100 text-base">Impressões de Faturas e Boletos</h3>
+                            <span class="text-rose-400 font-bold text-sm bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/20 shrink-0">
+                                R$ 2,00
+                            </span>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                            Impressão imediata de contas, boletos e comprovantes enviados por e-mail ou WhatsApp.
+                        </p>
+                    </div>
+                    <button onclick="pedirServico('Impressões de Faturas e Boletos')" class="mt-2 w-full bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-semibold py-2 px-3 rounded-xl border border-slate-700/80 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Solicitar Impressão
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORIA 2: FOTOGRAFIA & RESTAURAÇÃO -->
+        <section class="category-section" data-category="foto">
+            <div class="flex items-center gap-3 mb-5 border-b border-slate-800 pb-3">
+                <div class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400">
+                    <i class="fa-solid fa-camera-retro"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold text-white tracking-wide">Fotografia & Restauração</h2>
+                    <p class="text-xs text-slate-400">Eternize seus melhores momentos com qualidade</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Item 1 -->
+                <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between glow-effect transition-all duration-300">
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="font-semibold text-slate-100 text-base">Impressão de Fotos Profissionais</h3>
+                            <span class="text-rose-400 font-bold text-sm bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/20 shrink-0">
+                                A partir de R$ 5,00
+                            </span>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                            Papel fotográfico de alta durabilidade e cores vibrantes.
+                        </p>
+                    </div>
+                    <button onclick="pedirServico('Impressão de Fotos com Qualidade Profissional')" class="mt-2 w-full bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-semibold py-2 px-3 rounded-xl border border-slate-700/80 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Enviar Fotos
+                    </button>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between glow-effect transition-all duration-300">
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="font-semibold text-slate-100 text-base">Restauração de Fotos</h3>
+                            <span class="text-rose-400 font-bold text-sm bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/20 shrink-0">
+                                A partir de R$ 20,00
+                            </span>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                            Recuperação digital avançada de fotos antigas, rasgadas ou manchadas.
+                        </p>
+                    </div>
+                    <button onclick="pedirServico('Restauração de Fotos')" class="mt-2 w-full bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-semibold py-2 px-3 rounded-xl border border-slate-700/80 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Orçar Restauração
+                    </button>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between glow-effect transition-all duration-300 sm:col-span-2">
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="font-semibold text-slate-100 text-base">Impressão de Fotos Tipo Polaroid</h3>
+                            <span class="text-rose-400 font-bold text-sm bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/20 shrink-0">
+                                R$ 3,50 un. / Kit 10: R$ 30
+                            </span>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                            Estilo retrô ideal para recordações, decoração de ambientes ou presentes especiais.
+                        </p>
+                    </div>
+                    <button onclick="pedirServico('Impressão de Fotos Tipo Polaroid')" class="mt-2 w-full bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-semibold py-2 px-3 rounded-xl border border-slate-700/80 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Pedir Kit Polaroid
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORIA 3: BRINDES & PERSONALIZADOS -->
+        <section class="category-section" data-category="brindes">
+            <div class="flex items-center gap-3 mb-5 border-b border-slate-800 pb-3">
+                <div class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400">
+                    <i class="fa-solid fa-gift"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold text-white tracking-wide">Brindes & Personalizados</h2>
+                    <p class="text-xs text-slate-400">Exclusividade e carinho em cada detalhe</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Item 1 -->
+                <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between glow-effect transition-all duration-300">
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="font-semibold text-slate-100 text-base">Canecas Personalizadas</h3>
+                            <span class="text-rose-400 font-bold text-sm bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/20 shrink-0">
+                                A partir de R$ 35,00
+                            </span>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                            Sublimação de alta qualidade em cerâmica ou polímero.
+                        </p>
+                    </div>
+                    <button onclick="pedirServico('Canecas Personalizadas')" class="mt-2 w-full bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-semibold py-2 px-3 rounded-xl border border-slate-700/80 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Personalizar Caneca
+                    </button>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between glow-effect transition-all duration-300">
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="font-semibold text-slate-100 text-base">Camisas Personalizadas</h3>
+                            <span class="text-rose-400 font-bold text-sm bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/20 shrink-0">
+                                A partir de R$ 25,00
+                            </span>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                            Estampas exclusivas para eventos, equipes ou uso diário.
+                        </p>
+                    </div>
+                    <button onclick="pedirServico('Camisas Personalizadas')" class="mt-2 w-full bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-semibold py-2 px-3 rounded-xl border border-slate-700/80 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Personalizar Camisa
+                    </button>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between glow-effect transition-all duration-300 sm:col-span-2">
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="font-semibold text-slate-100 text-base">Personalizados para Aniversários & Eventos</h3>
+                            <span class="text-amber-400 font-bold text-xs bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/20 shrink-0">
+                                Sob Consulta
+                            </span>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                            Topos de bolo, lembrancinhas, tags e adesivos temáticos para tornar sua festa inesquecível.
+                        </p>
+                    </div>
+                    <button onclick="pedirServico('Personalizados para Aniversários e Eventos')" class="mt-2 w-full bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-semibold py-2 px-3 rounded-xl border border-slate-700/80 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Consultar Tema
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORIA 4: DESIGN & WEB -->
+        <section class="category-section" data-category="design">
+            <div class="flex items-center gap-3 mb-5 border-b border-slate-800 pb-3">
+                <div class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400">
+                    <i class="fa-solid fa-laptop-code"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold text-white tracking-wide">Design & Web</h2>
+                    <p class="text-xs text-slate-400">Impulsione sua marca no digital e no físico</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Item 1 -->
+                <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between glow-effect transition-all duration-300">
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="font-semibold text-slate-100 text-base">Criação de Menus (Físico ou Digital)</h3>
+                            <span class="text-rose-400 font-bold text-sm bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/20 shrink-0">
+                                A partir de R$ 50,00
+                            </span>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                            Cardápios interativos para WhatsApp ou prontos para impressão.
+                        </p>
+                    </div>
+                    <button onclick="pedirServico('Criação de Menus (Físico ou Digital)')" class="mt-2 w-full bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-semibold py-2 px-3 rounded-xl border border-slate-700/80 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Criar Cardápio
+                    </button>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between glow-effect transition-all duration-300">
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="font-semibold text-slate-100 text-base">Criação de Logomarca (Logo)</h3>
+                            <span class="text-rose-400 font-bold text-sm bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/20 shrink-0">
+                                A partir de R$ 120,00
+                            </span>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                            Identidade visual profissional e marcante para o seu negócio se destacar.
+                        </p>
+                    </div>
+                    <button onclick="pedirServico('Criação de Logomarca (Logo)')" class="mt-2 w-full bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-semibold py-2 px-3 rounded-xl border border-slate-700/80 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Criar Logomarca
+                    </button>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between glow-effect transition-all duration-300">
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="font-semibold text-slate-100 text-base">Identidade Digital Completa</h3>
+                            <span class="text-amber-400 font-bold text-xs bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/20 shrink-0">
+                                Sob Consulta
+                            </span>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                            Paleta de cores, tipografia, manual de marca e artes profissionais para redes sociais.
+                        </p>
+                    </div>
+                    <button onclick="pedirServico('Identidade Digital Completa')" class="mt-2 w-full bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-semibold py-2 px-3 rounded-xl border border-slate-700/80 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Consultar Pacote
+                    </button>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="glass-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between glow-effect transition-all duration-300">
+                    <div>
+                        <div class="flex justify-between items-start gap-2 mb-2">
+                            <h3 class="font-semibold text-slate-100 text-base">Criação de Sites</h3>
+                            <span class="text-amber-400 font-bold text-xs bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/20 shrink-0">
+                                Sob Consulta
+                            </span>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                            Websites modernos, responsivos, landing pages e blogs otimizados para conversão.
+                        </p>
+                    </div>
+                    <button onclick="pedirServico('Criação de Sites (Comercial, Blogs, etc.)')" class="mt-2 w-full bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-semibold py-2 px-3 rounded-xl border border-slate-700/80 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Orçar Site
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="mt-16 border-t border-slate-800 bg-slate-950/60 py-8 px-4 text-center text-xs text-slate-500">
+        <div class="max-w-md mx-auto space-y-3">
+            <p class="font-semibold text-slate-400 text-sm">🎨 GRÁFICA JULIART</p>
+            <p>Qualidade, agilidade e inovação em cada impresso e projeto digital.</p>
+            <div class="flex justify-center gap-4 pt-2">
+                <a href="https://instagram.com" target="_blank" class="w-9 h-9 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-rose-500 hover:border-rose-500/30 transition-all">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/5500000000000" target="_blank" class="w-9 h-9 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-rose-500 hover:border-rose-500/30 transition-all">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+            </div>
+            <p class="pt-4 border-t border-slate-900">© 2026 Gráfica Juliart. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Botão Flutuante do WhatsApp -->
+    <div class="fixed bottom-5 right-5 z-50">
+        <a href="https://wa.me/5500000000000?text=Olá!%20Vim%20pelo%20catálogo%20online%20e%20gostaria%20de%20mais%20informações." target="_blank" class="flex items-center gap-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 px-4 rounded-full shadow-2xl shadow-emerald-600/40 transform hover:scale-105 transition-all duration-300 border border-emerald-400/30">
+            <i class="fa-brands fa-whatsapp text-2xl"></i>
+            <span class="text-sm hidden sm:inline">Fale Conosco</span>
+        </a>
+    </div>
+
+    <!-- Script de Filtro e Interação -->
+    <script>
+        const whatsappNumber = "5500000000000"; // Substitua pelo número real com DDD
+
+        function pedirServico(nomeServico) {
+            const mensagem = encodeURIComponent(`Olá! Gostaria de mais informações ou solicitar o serviço: *${nomeServico}*`);
+            window.open(`https://wa.me/${whatsappNumber}?text=${mensagem}`, '_blank');
+        }
+
+        function filterCategory(category) {
+            // Atualizar classes dos botões
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-rose-600', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-slate-800', 'text-slate-300', 'border', 'border-slate-700/60');
+            });
+
+            const activeBtn = document.getElementById(`btn-${category}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-800', 'text-slate-300', 'border', 'border-slate-700/60');
+                activeBtn.classList.add('bg-rose-600', 'text-white', 'shadow-sm');
+            }
+
+            // Filtrar seções
+            document.querySelectorAll('.category-section').forEach(section => {
+                if (category === 'all' || section.getAttribute('data-category') === category) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
